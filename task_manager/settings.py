@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'agile-dusk-28235.herokuapp.com',
+    'webserver',
+    'localhost',
 ]
 
 
