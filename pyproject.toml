@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "hexlet-code"
+version = "0.1.0"
+description = ""
+authors = ["Andrey_Fominykh <meriadok2003@mail.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^4.0.3"
+
+[tool.poetry.dev-dependencies]
+gunicorn = "^20.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
