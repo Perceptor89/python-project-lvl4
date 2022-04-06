@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(y%2$c9pt8(z2hswl(-y(-dpcibe*&rn#fy(2ojwh7yegi1=2b
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'task_manager.herokuapp.com',
+    'agile-dusk-28235.herokuapp.com',
 ]
 
 
