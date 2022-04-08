@@ -35,7 +35,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', False)
 
 
 ALLOWED_HOSTS = [
-    'agile-dusk-28235.herokuapp.com',
+    '*.herokuapp.com',
     'webserver',
     'localhost',
 ]
