@@ -35,7 +35,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', False)
 
 
 ALLOWED_HOSTS = [
-    '*.herokuapp.com',
+    '.herokuapp.com',
     'webserver',
     'localhost',
 ]
