@@ -140,7 +140,7 @@ python-versions = ">=3.6"
 name = "python-dotenv"
 version = "0.20.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -216,7 +216,7 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d3cc20d9dc4991fd082d51d1984581d75286331096956d09a1d08c7847f1d8d6"
+content-hash = "e7030837f5172f5f64791cf268f17ffd55ce0b6b749818994d85dabc365fb6fb"
 
 [metadata.files]
 asgiref = [
