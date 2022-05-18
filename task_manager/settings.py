@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
     'labels.apps.LabelsConfig',
     'bootstrap4',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
