@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h1 class="my-4">{{ title }}</h1>
+    <p>{{ message }}</p>
+    {% bootstrap_button btn_name button_type="submit" button_class="btn-danger" %}
+</form>
+{% endblock %}
