@@ -11,7 +11,7 @@ CREATE_TITLE = _('Status creation')
 UPDATE_TITLE = _('Status update')
 DELETE_TITLE = _('Status delete')
 
-STATUS_MODEL_VAR = 'table'
+CONTEXT_OBJECT_NAME = 'table'
 STATUS_OK = 200
 
 TABLE_HEADS = [
@@ -19,8 +19,6 @@ TABLE_HEADS = [
     _('Name'),
     _('Creation date'),
 ]
-
-LOGIN_PAGE = '/login/'
 
 MESSAGE_CREATE_SUCCESS = _('Status created successfully')
 MESSAGE_UPDATE_SUCCESS = _('Status updated successfully')

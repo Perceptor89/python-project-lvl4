@@ -11,6 +11,6 @@ urlpatterns = [
 ]
 
 external_patterns = [
-    path('login/', views.UserLogin.as_view(), name='login'),
-    path('logout/', views.UserLogout.as_view(), name='logout'),
+    path('login/', views.UserLogin.as_view(), name=consts.LOGIN_VIEW),
+    path('logout/', views.UserLogout.as_view(), name=consts.LOGOUT_VIEW),
 ]

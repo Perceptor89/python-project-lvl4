@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 import itertools
 
+from users.consts import LOGIN_VIEW
 from labels.models import Label
 from statuses.models import Status
 from tasks import consts
@@ -10,29 +11,19 @@ from tasks.models import Task
 
 
 class TestTasks(TestCase):
-
     fixtures = [
-        "Users.json",
-        "Statuses.json",
-        "Labels.json",
-        "Tasks.json",
+        'Users.json',
+        'Statuses.json',
+        'Labels.json',
+        'Tasks.json',
     ]
 
-    def setUp(self) -> None:
-        # self.label1 = Label.objects.get(pk=1)
-        # self.label2 = Label.objects.get(pk=2)
-        # self.label3 = Label.objects.get(pk=3)
-        # self.label4 = Label.objects.get(pk=4)
-        # self.label5 = Label.objects.get(pk=5)
+    def setUp(self):
+        self.user1 = User.objects.get(id=1)
+        self.user2 = User.objects.get(id=2)
 
-        self.task1 = Task.objects.get(pk=1)
-        self.task2 = Task.objects.get(pk=2)
-
-        self.user1 = User.objects.get(pk=1)
-        self.user2 = User.objects.get(pk=2)
-
-        self.status1 = Status.objects.get(pk=1)
-        self.status2 = Status.objects.get(pk=2)
+        self.task1 = Task.objects.get(id=1)
+        self.task2 = Task.objects.get(id=2)
         self.task = {
             'name': "task3",
             'description': "description3",
@@ -63,18 +54,18 @@ class TestTasks(TestCase):
 
     def test_tasks_list_no_login(self):
         response = self.client.get(reverse(consts.LIST_VIEW))
-        self.assertRedirects(response, consts.LOGIN_PAGE)
+        self.assertRedirects(response, reverse(LOGIN_VIEW))
 
     def test_create_task(self):
         self.client.force_login(self.user1)
-        initial_count = Task.objects.all().count()
+        count_before = Task.objects.all().count()
         response = self.client.post(
             reverse(consts.CREATE_VIEW),
             self.task,
             follow=True,
         )
-        altered_count = Task.objects.all().count()
-        self.assertEqual(altered_count, initial_count + 1)
+        count_after = Task.objects.all().count()
+        self.assertEqual(count_after, count_before + 1)
         self.assertRedirects(response, reverse(consts.LIST_VIEW))
         self.assertContains(response, consts.MESSAGE_CREATE_SUCCESS)
         created_task = Task.objects.get(name=self.task['name'])
@@ -90,7 +81,7 @@ class TestTasks(TestCase):
     def test_change_task(self):
         self.client.force_login(self.user1)
         count_before = Task.objects.all().count()
-        url = reverse(consts.UPDATE_VIEW, args=(self.task1.pk,))
+        url = reverse(consts.UPDATE_VIEW, args=(self.task1.id,))
         response = self.client.post(url, self.task, follow=True)
         count_after = Task.objects.all().count()
         self.assertEqual(count_before, count_after)
@@ -108,54 +99,66 @@ class TestTasks(TestCase):
 
     def test_delete_task(self):
         self.client.force_login(self.user1)
-        url = reverse(consts.DELETE_VIEW, args=(self.task1.pk,))
+        url = reverse(consts.DELETE_VIEW, args=(self.task1.id,))
         response = self.client.post(url, follow=True)
         with self.assertRaises(Task.DoesNotExist):
-            Task.objects.get(pk=self.task1.pk)
+            Task.objects.get(id=self.task1.id)
         self.assertRedirects(response, reverse(consts.LIST_VIEW))
         self.assertContains(response, consts.MESSAGE_DELETE_SUCCESS)
 
     def test_delete_task_not_author(self):
         self.client.force_login(self.user1)
-        url = reverse(consts.DELETE_VIEW, args=(self.task2.pk,))
+        url = reverse(consts.DELETE_VIEW, args=(self.task2.id,))
         response = self.client.post(url, follow=True)
-        self.assertTrue(Task.objects.filter(pk=self.task2.pk).exists())
+        self.assertTrue(Task.objects.filter(id=self.task2.id).exists())
         self.assertRedirects(response, reverse(consts.LIST_VIEW))
         self.assertContains(response, consts.MESSAGE_DELETE_CONSTRAINT)
 
-    # def test_filter_self_tasks(self):
-    #     """Check filter user's self tasks."""
-    #     self.client.force_login(self.user1)
-    #     filtered_list = "{0}?self_task=on".format(reverse(TASKS_LIST))
-    #     response = self.client.get(filtered_list)
-    #     self.assertEqual(response.status_code, STATUS_OK)
-    #     self.assertQuerysetEqual(list(response.context[TASKS]), [self.task1])
+    def test_filter_self_tasks(self):
+        self.client.force_login(self.user1)
+        filtered_list = "{0}?self_task=on".format(reverse(consts.LIST_VIEW))
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, consts.STATUS_OK)
+        filtered_authors = response.context['filter'].qs.values_list('concat1', flat=True)
+        for author in filtered_authors:
+            self.assertEqual(author, self.user1.get_full_name())
 
-    # def test_filter_by_status(self):
-    #     """Check filter tasks by status."""
-    #     self.client.force_login(self.user1)
-    #     filtered_list = "{0}?status=2".format(reverse(TASKS_LIST))
-    #     response = self.client.get(filtered_list)
-    #     self.assertEqual(response.status_code, STATUS_OK)
-    #     self.assertQuerysetEqual(list(response.context[TASKS]), [self.task2])
+    def test_filter_by_status(self):
+        test_status_id = 2
+        self.client.force_login(self.user1)
+        filtered_list = "{0}?status={1}".format(
+            reverse(consts.LIST_VIEW), test_status_id
+        )
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, consts.STATUS_OK)
+        filtered_statuses = response.context['filter'].qs.values_list('status', flat=True)
+        for status in filtered_statuses:
+            self.assertEqual(status, test_status_id)
 
-    # def test_filter_by_executor(self):
-    #     """Check filter tasks by executor."""
-    #     self.client.force_login(self.user1)
-    #     filtered_list = "{0}?executor=2".format(reverse(TASKS_LIST))
-    #     response = self.client.get(filtered_list)
-    #     self.assertEqual(response.status_code, STATUS_OK)
-    #     self.assertQuerysetEqual(list(response.context[TASKS]), [self.task1])
+    def test_filter_by_executor(self):
+        test_executor_id = 2
+        self.client.force_login(self.user1)
+        filtered_list = "{0}?executor={1}".format(
+            reverse(consts.LIST_VIEW), test_executor_id
+        )
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, consts.STATUS_OK)
+        filtered_executors = response.context['filter'].qs.values_list('concat2', flat=True)
+        for executor in filtered_executors:
+            self.assertEqual(executor, self.user2.get_full_name())
 
-    # def test_filter_by_label(self):
-    #     """Check filter tasks by label."""
-    #     self.client.force_login(self.user1)
-    #     self.client.post(reverse(TASKS_CREATE), self.task, follow=True)
-    #     created_task = Task.objects.get(name=self.task[NAME])
-    #     filtered_list = "{0}?labels=1".format(reverse(TASKS_LIST))
-    #     response = self.client.get(filtered_list)
-    #     self.assertEqual(response.status_code, STATUS_OK)
-    #     self.assertQuerysetEqual(
-    #         list(response.context[TASKS]),
-    #         [self.task1, created_task],
-    #     )
+    def test_filter_by_label(self):
+        test_label_id = 1
+        self.client.force_login(self.user1)
+        self.client.post(reverse(consts.CREATE_VIEW), self.task, follow=True)
+        filtered_list = "{0}?labels={1}".format(
+            reverse(consts.LIST_VIEW), test_label_id
+        )
+        response = self.client.get(filtered_list)
+        self.assertEqual(response.status_code, consts.STATUS_OK)
+        for filtered_task in response.context['filter'].qs:
+            db_task = Task.objects.get(id=filtered_task.id)
+            assigned_labels = list(
+                itertools.chain(*db_task.labels.values_list('id'))
+            )
+            self.assertIn(test_label_id, assigned_labels)

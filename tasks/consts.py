@@ -15,7 +15,7 @@ DETAIL_TITLE = _('Task view')
 DETAIL_LINK_COLUMN = 2
 CREATE_LINK = _('Create task')
 
-TASKS_MODEL_VAR = 'tasks'
+CONTEXT_OBJECT_NAME = 'tasks'
 STATUS_OK = 200
 
 TABLE_HEADS = [
@@ -26,8 +26,6 @@ TABLE_HEADS = [
     _('Executor'),
     _('Creation date'),
 ]
-
-LOGIN_PAGE = '/login/'
 
 MESSAGE_CREATE_SUCCESS = _('Task created successfully')
 MESSAGE_UPDATE_SUCCESS = _('Task updated successfully')

@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import RestrictedError
@@ -11,12 +13,13 @@ from statuses import consts
 from statuses.forms import StatusCreateForm
 from statuses.models import Status
 
+logger = logging.getLogger(__name__)
+
 
 class StatusListView(LoginRequiredMessage, ListView):
     template_name = 'table.html'
     model = Status
-    context_object_name = 'table'
-
+    context_object_name = consts.CONTEXT_OBJECT_NAME
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -85,4 +88,4 @@ class StatusDeleteView(LoginRequiredMessage, SuccessMessageMixin, DeleteView):
             messages.error(self.request, msg)
         else:
             messages.success(self.request, self.success_message)
-            return redirect(self.success_url)
+        return redirect(self.success_url)

@@ -1,7 +1,9 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import RestrictedError
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.utils.translation import gettext as _
@@ -11,10 +13,12 @@ from labels import consts
 from labels.forms import LabelForm
 from labels.models import Label
 
+logger = logging.getLogger(__name__)
+
 
 class LabelListView(LoginRequiredMessage, ListView):
     template_name = 'table.html'
-    context_object_name = 'table'
+    context_object_name = consts.CONTEXT_OBJECT_NAME
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -83,4 +87,4 @@ class LabelDeleteView(LoginRequiredMessage, DeleteView):
             messages.error(self.request, msg)
         else:
             messages.success(self.request, consts.MESSAGE_DELETE_SUCCESS)
-        return HttpResponseRedirect(self.success_url)
+        return redirect(self.success_url)

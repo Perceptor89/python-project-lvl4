@@ -5,6 +5,8 @@ LIST_VIEW = 'list'
 UPDATE_VIEW = 'update_user'
 DELETE_VIEW = 'delete_user'
 CREATE_VIEW = 'registration'
+LOGIN_VIEW = 'login'
+LOGOUT_VIEW = 'logout'
 
 LIST_TITLE = _('Users')
 UPDATE_TITLE = _('Change user')
@@ -17,8 +19,11 @@ TABLE_HEADS = (
     _('Full name'),
     _('Creation date')
 )
-QUESTION_DELETE = _('Are you sure want to delete')
 
+CONTEXT_OBJECT_NAME = 'table'
+STATUS_OK = 200
+
+QUESTION_DELETE = _('Are you sure want to delete')
 MESSAGE_LOGIN_SUCCESS = _('Successful login')
 MESSAGE_INVALID_PASSWORD = _('Invalid pair user-password')
 MESSAGE_NO_PERMISSION = _('You have no permission to edit '

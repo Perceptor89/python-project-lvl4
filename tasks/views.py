@@ -6,20 +6,20 @@ from django.db.models.functions import Concat
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
 from django.views.generic import (DetailView, ListView,
                                   CreateView, DeleteView, UpdateView)
-from django.utils.translation import gettext as _
 
 from task_manager.mixins import LoginRequiredMessage
 from tasks import consts
-from tasks.forms import TaskForm
+from tasks.forms import TaskForm, TaskFilter
 from tasks.models import Task
 
 
 class TaskListView(LoginRequiredMessage, ListView):
     template_name = 'tasks/table.html'
     model = Task
-    context_object_name = 'tasks'
+    context_object_name = consts.CONTEXT_OBJECT_NAME
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,11 +29,11 @@ class TaskListView(LoginRequiredMessage, ListView):
         context['create_path'] = consts.CREATE_VIEW
         context['update_link'] = consts.UPDATE_VIEW
         context['delete_link'] = consts.DELETE_VIEW
-        context['detail_link'] = consts.DETAIL_LINK_COLUMN
+        context['detail_col'] = consts.DETAIL_LINK_COLUMN
         context['detail_path'] = consts.DETAIL_VIEW
-        # context['filter'] = TaskFilter(self.request.GET,
-        #                                request=self.request,
-        #                                queryset=self.get_queryset())
+        context['filter'] = TaskFilter(self.request.GET,
+                                       request=self.request,
+                                       queryset=self.get_queryset())
         return context
 
     def get_queryset(self, *args, **kwargs):
@@ -103,7 +103,7 @@ class TaskDeleteView(LoginRequiredMessage, DeleteView):
             messages.error(self.request, msg)
         else:
             messages.success(self.request, self.success_message)
-        return HttpResponseRedirect(self.success_url)
+        return redirect(self.success_url)
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.id:

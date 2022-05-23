@@ -1,5 +1,5 @@
-export BROWSER=wslview
 MANAGE := poetry run python manage.py
+export BROWSER=wslview
 
 heroku-web:
 	poetry run heroku open

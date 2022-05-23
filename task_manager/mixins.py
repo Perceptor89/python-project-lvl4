@@ -1,8 +1,11 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.mixins import AccessMixin
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 
+logger = logging.getLogger(__name__)
 
 MESSAGE_LOGIN_REQUIRED = _('You have no authorization! Log in please.')
 

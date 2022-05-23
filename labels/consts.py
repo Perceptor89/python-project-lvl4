@@ -13,7 +13,7 @@ DELETE_TITLE = _('Label delete')
 DETAIL_LINK_COLUMN = 2
 CREATE_LINK = _('Create label')
 
-LABEL_CONTEXT_NAME = 'table'
+CONTEXT_OBJECT_NAME = 'table'
 STATUS_OK = 200
 
 TABLE_HEADS = [
@@ -21,8 +21,6 @@ TABLE_HEADS = [
     _('Name'),
     _('Creation date'),
 ]
-
-LOGIN_PAGE = '/login/'
 
 MESSAGE_CREATE_SUCCESS = _('Label created successfully')
 MESSAGE_UPDATE_SUCCESS = _('Label updated successfully')

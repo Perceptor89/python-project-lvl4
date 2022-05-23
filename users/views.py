@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import AccessMixin
@@ -6,6 +8,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import RestrictedError, Value
 from django.db.models.functions import Concat
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
@@ -14,6 +17,8 @@ from django.utils.translation import gettext as _
 from task_manager.mixins import LoginRequiredMessage
 from users import consts
 from users.forms import UserCreateForm
+
+logger = logging.getLogger(__name__)
 
 
 class UserHasPermission(AccessMixin):
@@ -27,7 +32,7 @@ class UserHasPermission(AccessMixin):
 class UserListView(ListView):
     template_name = 'table.html'
     model = User
-    context_object_name = 'table'
+    context_object_name = consts.CONTEXT_OBJECT_NAME
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,8 +51,7 @@ class UserListView(ListView):
                 Value(' '),
                 'last_name'),
             'date_joined',
-            named=True).exclude(
-                is_superuser=True)
+            named=True)
 
 
 class UserUpdateView(LoginRequiredMessage, UserHasPermission,
@@ -93,7 +97,7 @@ class UserDeleteView(LoginRequiredMessage, UserHasPermission,
             messages.error(self.request, msg)
         else:
             messages.success(self.request, self.success_message)
-            return redirect(self.success_url)
+        return redirect(self.success_url)
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
@@ -122,9 +126,9 @@ class UserLogin(LoginView):
         messages.success(self.request, consts.MESSAGE_LOGIN_SUCCESS)
         return reverse_lazy('home')
 
-    # def form_invalid(self, form):
-    #     messages.error(self.request, consts.MESSAGE_INVALID_PASSWORD)
-    #     return super().form_invalid(form)
+    def form_invalid(self, form):
+        messages.error(self.request, consts.MESSAGE_INVALID_PASSWORD)
+        return super().form_invalid(form)
 
 
 class UserLogout(LoginRequiredMessage, LogoutView):
