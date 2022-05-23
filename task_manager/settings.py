@@ -14,7 +14,7 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
-# import rollbar
+import rollbar
 
 # Take environment variables from .env
 load_dotenv()
@@ -71,12 +71,12 @@ MIDDLEWARE = [
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
-# ROLLBAR = {
-#     'access_token': ROLL_KEY,
-#     'environment': 'development' if DEBUG else 'production',
-#     'root': BASE_DIR,
-# }
-# # rollbar.init(**ROLLBAR)
+ROLLBAR = {
+    'access_token': ROLL_KEY,
+    'environment': 'development' if DEBUG else 'production',
+    'root': BASE_DIR,
+}
+rollbar.init(**ROLLBAR)
 
 ROOT_URLCONF = 'task_manager.urls'
 

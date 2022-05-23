@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-18 21:12+0300\n"
+"POT-Creation-Date: 2022-05-23 23:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: labels/consts.py:9 labels/models.py:17 task_manager/templates/base.html:34
-#: tasks/forms.py:24 tasks/templates/tasks/detail.html:32
+#: tasks/forms.py:27 tasks/templates/tasks/detail.html:32
 msgid "Labels"
 msgstr "Метки"
 
@@ -41,52 +41,52 @@ msgstr "Удаление метки"
 msgid "Create label"
 msgstr "Создать метку"
 
-#: labels/consts.py:21 labels/forms.py:12 statuses/consts.py:19
-#: statuses/forms.py:11 statuses/forms.py:13 tasks/consts.py:23
-#: tasks/forms.py:20
+#: labels/consts.py:21 labels/forms.py:16 statuses/consts.py:19
+#: statuses/forms.py:15 statuses/forms.py:17 tasks/consts.py:23
+#: tasks/forms.py:23
 msgid "Name"
 msgstr "Имя"
 
 #: labels/consts.py:22 statuses/consts.py:20 tasks/consts.py:27
-#: tasks/templates/tasks/detail.html:27 users/consts.py:18
+#: tasks/templates/tasks/detail.html:27 users/consts.py:20
 msgid "Creation date"
 msgstr "Дата создания"
 
-#: labels/consts.py:27
+#: labels/consts.py:25
 msgid "Label created successfully"
 msgstr "Метка успешно создана"
 
-#: labels/consts.py:28
+#: labels/consts.py:26
 msgid "Label updated successfully"
 msgstr "Метка успешно изменена"
 
-#: labels/consts.py:29
+#: labels/consts.py:27
 msgid "Label deleted successfully"
 msgstr "Метка успешно удалена"
 
-#: labels/consts.py:30 statuses/consts.py:28 tasks/consts.py:35
+#: labels/consts.py:28 statuses/consts.py:26 tasks/consts.py:33
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены, что хотите удалить"
 
-#: labels/consts.py:31
+#: labels/consts.py:29
 msgid "Unable to delete label as it is in use"
 msgstr "Невозможно удалить метку, которая используется"
 
-#: labels/models.py:16
+#: labels/models.py:16 tasks/forms.py:39
 msgid "Label"
 msgstr "Метка"
 
-#: labels/views.py:45 statuses/views.py:47 tasks/views.py:61
+#: labels/views.py:49 statuses/views.py:50 tasks/views.py:61
 msgid "Create"
 msgstr "Создать"
 
-#: labels/views.py:59 statuses/views.py:61 task_manager/templates/table.html:23
-#: tasks/templates/tasks/detail.html:42 tasks/templates/tasks/table.html:25
-#: tasks/views.py:79 users/views.py:64
+#: labels/views.py:63 statuses/views.py:64 task_manager/templates/table.html:23
+#: tasks/templates/tasks/detail.html:42 tasks/templates/tasks/table.html:46
+#: tasks/views.py:79 users/views.py:68
 msgid "Change"
 msgstr "Изменить"
 
-#: labels/views.py:72 statuses/views.py:74 tasks/views.py:92 users/views.py:82
+#: labels/views.py:76 statuses/views.py:77 tasks/views.py:92 users/views.py:86
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -107,40 +107,40 @@ msgstr "Изменение статуса"
 msgid "Status delete"
 msgstr "Удаление статуса"
 
-#: statuses/consts.py:25
+#: statuses/consts.py:23
 msgid "Status created successfully"
 msgstr "Статус успешно создан"
 
-#: statuses/consts.py:26
+#: statuses/consts.py:24
 msgid "Status updated successfully"
 msgstr "Статус успешно изменен"
 
-#: statuses/consts.py:27
+#: statuses/consts.py:25
 msgid "Status deleted successfully"
 msgstr "Статус успешно удален"
 
-#: statuses/consts.py:29
+#: statuses/consts.py:27
 msgid "Unable to delete status as it is in use"
 msgstr "Невозможно удалить статус, который используется"
 
-#: statuses/models.py:16 tasks/consts.py:24 tasks/forms.py:22
+#: statuses/models.py:16 tasks/consts.py:24 tasks/forms.py:25 tasks/forms.py:33
 #: tasks/templates/tasks/detail.html:23
 msgid "Status"
 msgstr "Статус"
 
-#: statuses/views.py:25
+#: statuses/views.py:28
 msgid "Create status"
 msgstr "Создать статус"
 
-#: task_manager/mixins.py:7
+#: task_manager/mixins.py:10
 msgid "You have no authorization! Log in please."
 msgstr "Вы не авторизованы! Войдите, пожалуйста."
 
-#: task_manager/settings.py:145
+#: task_manager/settings.py:142
 msgid "English"
 msgstr "Английский"
 
-#: task_manager/settings.py:146
+#: task_manager/settings.py:143
 msgid "Russian"
 msgstr "Русский"
 
@@ -148,7 +148,7 @@ msgstr "Русский"
 msgid "Task manager"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/base.html:24 users/consts.py:9
+#: task_manager/templates/base.html:24 users/consts.py:11
 msgid "Users"
 msgstr "Пользователи"
 
@@ -181,7 +181,7 @@ msgid "To learn more"
 msgstr "Узнать больше"
 
 #: task_manager/templates/table.html:25 tasks/templates/tasks/detail.html:44
-#: tasks/templates/tasks/table.html:27
+#: tasks/templates/tasks/table.html:48
 msgid "Delete"
 msgstr "Удалить"
 
@@ -209,99 +209,108 @@ msgstr "Создать задачу"
 msgid "Author"
 msgstr "Автор"
 
-#: tasks/consts.py:26 tasks/forms.py:23 tasks/templates/tasks/detail.html:19
+#: tasks/consts.py:26 tasks/forms.py:26 tasks/forms.py:37
+#: tasks/templates/tasks/detail.html:19
 msgid "Executor"
 msgstr "Исполнитель"
 
-#: tasks/consts.py:32
+#: tasks/consts.py:30
 msgid "Task created successfully"
 msgstr "Задача успешно создана"
 
-#: tasks/consts.py:33
+#: tasks/consts.py:31
 msgid "Task updated successfully"
 msgstr "Задача успешно изменена"
 
-#: tasks/consts.py:34
+#: tasks/consts.py:32
 msgid "Task deleted successfully"
 msgstr "Задача успешно удалена"
 
-#: tasks/consts.py:36
+#: tasks/consts.py:34
 msgid "The task may be deleted only by author"
 msgstr "Задача может быть удалена только автором"
 
-#: tasks/forms.py:21
+#: tasks/forms.py:24
 msgid "Description"
 msgstr "Описание"
+
+#: tasks/forms.py:41
+msgid "Only my tasks"
+msgstr "Только мои задачи"
 
 #: tasks/models.py:35
 msgid "Task"
 msgstr "Задача"
 
-#: users/consts.py:10
+#: tasks/templates/tasks/table.html:23
+msgid "Show"
+msgstr "Показать"
+
+#: users/consts.py:12
 msgid "Change user"
 msgstr "Изменение пользователя"
 
-#: users/consts.py:11
+#: users/consts.py:13
 msgid "Delete user"
 msgstr "Удаление пользователя"
 
-#: users/consts.py:12
+#: users/consts.py:14
 msgid "User registration"
 msgstr "Регистрация пользователя"
 
-#: users/consts.py:13
+#: users/consts.py:15
 msgid "Authorization"
 msgstr "Авторизация"
 
-#: users/consts.py:16
+#: users/consts.py:18
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: users/consts.py:17
+#: users/consts.py:19
 msgid "Full name"
 msgstr "Полное имя"
 
-#: users/consts.py:20
+#: users/consts.py:26
 msgid "Are you sure want to delete"
 msgstr "Вы уверены, что хотите удалить"
 
-#: users/consts.py:22
+#: users/consts.py:27
 msgid "Successful login"
 msgstr "Успешная авторизация"
 
-#: users/consts.py:23
+#: users/consts.py:28
 msgid "Invalid pair user-password"
 msgstr "Неверная пара логин-пароль"
 
-#: users/consts.py:24
+#: users/consts.py:29
 msgid "You have no permission to edit another user's profile"
 msgstr "У вас нет прав для редактирования профиля другого пользователя"
 
-#: users/consts.py:26
+#: users/consts.py:31
 msgid "User changed successfully"
 msgstr "Пользователь успешно изменен"
 
-#: users/consts.py:27
+#: users/consts.py:32
 msgid "User was successfully deleted"
 msgstr "Пользователь успешно удален"
 
-#: users/consts.py:28
+#: users/consts.py:33
 msgid "Unable to delete user as it is in use"
 msgstr "Невозможно удалить пользователя, который используется"
 
-#: users/consts.py:29
+#: users/consts.py:34
 msgid "User successfully created"
 msgstr "Пользователь успешно создан"
 
-#: users/consts.py:30
+#: users/consts.py:35
 msgid "You are logged out"
 msgstr "Вы вышли из системы"
 
-#: users/views.py:108
+#: users/views.py:112
 msgid "Register user"
 msgstr "Регистрация пользователя"
 
-#: users/views.py:118
+#: users/views.py:122
 msgid "Enter"
 msgstr "Войти"
 
