@@ -2,7 +2,6 @@
 {% load bootstrap4 %}
 {% load i18n %}
 {% block content %}
-<h1 class="my-4">{{ title }}</h1>
 {% if create_path %}
 <a class="nav-link" href={% url create_path %}>{{ create_path_name }}</a>
 {% endif %}
