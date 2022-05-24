@@ -70,7 +70,7 @@ msgstr "Вы уверены, что хотите удалить"
 
 #: labels/consts.py:29
 msgid "Unable to delete label as it is in use"
-msgstr "Невозможно удалить метку, которая используется"
+msgstr "Невозможно удалить метку, потому что она используется"
 
 #: labels/models.py:16 tasks/forms.py:39
 msgid "Label"
@@ -121,7 +121,7 @@ msgstr "Статус успешно удален"
 
 #: statuses/consts.py:27
 msgid "Unable to delete status as it is in use"
-msgstr "Невозможно удалить статус, который используется"
+msgstr "Невозможно удалить статус, потому что он используется"
 
 #: statuses/models.py:16 tasks/consts.py:24 tasks/forms.py:25 tasks/forms.py:33
 #: tasks/templates/tasks/detail.html:23
@@ -228,7 +228,7 @@ msgstr "Задача успешно удалена"
 
 #: tasks/consts.py:34
 msgid "The task may be deleted only by author"
-msgstr "Задача может быть удалена только автором"
+msgstr "Задачу может удалить только ее автор"
 
 #: tasks/forms.py:24
 msgid "Description"
@@ -284,7 +284,7 @@ msgstr "Неверная пара логин-пароль"
 
 #: users/consts.py:29
 msgid "You have no permission to edit another user's profile"
-msgstr "У вас нет прав для редактирования профиля другого пользователя"
+msgstr "У вас нет прав для изменения другого пользователя."
 
 #: users/consts.py:31
 msgid "User changed successfully"
@@ -300,7 +300,7 @@ msgstr "Невозможно удалить пользователя, котор
 
 #: users/consts.py:34
 msgid "User successfully created"
-msgstr "Пользователь успешно создан"
+msgstr "Пользователь успешно зарегистрирован"
 
 #: users/consts.py:35
 msgid "You are logged out"
@@ -308,7 +308,7 @@ msgstr "Вы разлогинены"
 
 #: users/views.py:112
 msgid "Register user"
-msgstr "Регистрация пользователя"
+msgstr "Зарегистрировать"
 
 #: users/views.py:122
 msgid "Enter"
