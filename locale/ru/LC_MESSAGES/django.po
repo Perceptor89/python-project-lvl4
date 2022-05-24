@@ -236,7 +236,7 @@ msgstr "Описание"
 
 #: tasks/forms.py:41
 msgid "Only my tasks"
-msgstr "Только мои задачи"
+msgstr "Только свои задачи"
 
 #: tasks/models.py:35
 msgid "Task"
