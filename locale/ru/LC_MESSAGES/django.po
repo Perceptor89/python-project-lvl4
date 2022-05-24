@@ -113,11 +113,11 @@ msgstr "Статус успешно создан"
 
 #: statuses/consts.py:24
 msgid "Status updated successfully"
-msgstr "Статус успешно изменен"
+msgstr "Статус успешно изменён"
 
 #: statuses/consts.py:25
 msgid "Status deleted successfully"
-msgstr "Статус успешно удален"
+msgstr "Статус успешно удалён"
 
 #: statuses/consts.py:27
 msgid "Unable to delete status as it is in use"
@@ -288,11 +288,11 @@ msgstr "У вас нет прав для изменения другого по�
 
 #: users/consts.py:31
 msgid "User changed successfully"
-msgstr "Пользователь успешно изменен"
+msgstr "Пользователь успешно изменён"
 
 #: users/consts.py:32
 msgid "User was successfully deleted"
-msgstr "Пользователь успешно удален"
+msgstr "Пользователь успешно удалён"
 
 #: users/consts.py:33
 msgid "Unable to delete user as it is in use"
