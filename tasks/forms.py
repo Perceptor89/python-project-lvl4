@@ -13,6 +13,16 @@ from tasks.models import Task
 
 
 class TaskForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+        ex_choices = [('', '-------------')] + list(
+            User.objects.values_list(
+                'id',
+                Concat('first_name', Value(' '), 'last_name'),
+                named=True,
+            ).all()
+        )
+        self.fields['executor'].choices = ex_choices
 
     class Meta:
         model = Task
