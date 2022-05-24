@@ -23,6 +23,7 @@ class TaskForm(forms.ModelForm):
             ).all()
         )
         self.fields['executor'].choices = ex_choices
+        self.fields['labels'].required = False
 
     class Meta:
         model = Task
