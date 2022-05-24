@@ -276,7 +276,7 @@ msgstr "Вы уверены, что хотите удалить"
 
 #: users/consts.py:27
 msgid "Successful login"
-msgstr "Успешная авторизация"
+msgstr "Вы залогинены"
 
 #: users/consts.py:28
 msgid "Invalid pair user-password"
@@ -304,7 +304,7 @@ msgstr "Пользователь успешно создан"
 
 #: users/consts.py:35
 msgid "You are logged out"
-msgstr "Вы вышли из системы"
+msgstr "Вы разлогинены"
 
 #: users/views.py:112
 msgid "Register user"
