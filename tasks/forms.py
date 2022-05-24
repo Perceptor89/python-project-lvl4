@@ -1,4 +1,3 @@
-from random import choices
 from django import forms
 from django.contrib.auth.models import User
 from django.db.models import Value
@@ -11,7 +10,6 @@ from django_filters import filters
 from labels.models import Label
 from statuses.models import Status
 from tasks.models import Task
-import tasks.consts
 
 
 class TaskForm(forms.ModelForm):

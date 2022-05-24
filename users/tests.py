@@ -42,7 +42,8 @@ class TestUsers(TestCase):
         response = self.client.post(url, new_user, follow=True)
         self.assertRedirects(response, reverse(consts.LOGIN_VIEW))
         self.assertContains(response, consts.MESSAGE_CREATE_SUCCESS)
-        created_user = User.objects.get(username=new_user['username'])
+        self.assertTrue(User.objects.filter(
+                        username=new_user['username']).exists())
         login_status = self.client.login(
             username=new_user['username'],
             password=new_user['password1'],

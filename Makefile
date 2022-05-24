@@ -1,43 +1,40 @@
 MANAGE := poetry run python manage.py
 export BROWSER=wslview
 
-heroku-web:
+web:
 	poetry run heroku open
 
-heroku-local:
-	poetry run heroku local
-
-deploy-check:
+check:
 	@$(MANAGE) check --deploy
 
 requirements:
 	poetry export -f requirements.txt --output requirements.txt
 
-run-local:
+run:
 	@$(MANAGE) runserver
 
-.PHONY: makemigrations
-makemigrations:
-	@$(MANAGE) makemigrations
-
-.PHONY: migrate
 migrate:
+	@$(MANAGE) makemigrations
 	@$(MANAGE) migrate
 
-.PHONY: shell
 shell:
 	@$(MANAGE) shell_plus
 
-makemessages:
+locale:
 	django-admin makemessages -a
 
-compilemessages:
+translate:
 	django-admin compilemessages
 
-.PHONY: lint
 lint:
-	@poetry run flake8 task_manager
+	poetry run flake8 task_manager/ labels/ statuses/ users/ tasks/
 
-.PHONY: test
 test:
 	@$(MANAGE) test
+
+coverage:
+	poetry run coverage run manage.py test
+	poetry run coverage xml
+	poetry run coverage report
+
+.PHONY: run test lint translate check web

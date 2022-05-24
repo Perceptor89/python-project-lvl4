@@ -8,7 +8,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import RestrictedError, Value
 from django.db.models.functions import Concat
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
@@ -88,7 +87,7 @@ class UserDeleteView(LoginRequiredMessage, UserHasPermission,
         msg = '{0} {1}?'.format(consts.QUESTION_DELETE, name)
         context['message'] = msg
         return context
-    
+
     def form_valid(self, form):
         try:
             self.object.delete()

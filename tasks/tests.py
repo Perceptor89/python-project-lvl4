@@ -4,8 +4,6 @@ from django.urls import reverse
 import itertools
 
 from users.consts import LOGIN_VIEW
-from labels.models import Label
-from statuses.models import Status
 from tasks import consts
 from tasks.models import Task
 
@@ -119,7 +117,8 @@ class TestTasks(TestCase):
         filtered_list = "{0}?self_task=on".format(reverse(consts.LIST_VIEW))
         response = self.client.get(filtered_list)
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        filtered_authors = response.context['filter'].qs.values_list('concat1', flat=True)
+        filtered_authors = response.context[
+            'filter'].qs.values_list('concat1', flat=True)
         for author in filtered_authors:
             self.assertEqual(author, self.user1.get_full_name())
 
@@ -131,7 +130,8 @@ class TestTasks(TestCase):
         )
         response = self.client.get(filtered_list)
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        filtered_statuses = response.context['filter'].qs.values_list('status', flat=True)
+        filtered_statuses = response.context[
+            'filter'].qs.values_list('status', flat=True)
         for status in filtered_statuses:
             self.assertEqual(status, test_status_id)
 
@@ -143,7 +143,8 @@ class TestTasks(TestCase):
         )
         response = self.client.get(filtered_list)
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        filtered_executors = response.context['filter'].qs.values_list('concat2', flat=True)
+        filtered_executors = response.context[
+            'filter'].qs.values_list('concat2', flat=True)
         for executor in filtered_executors:
             self.assertEqual(executor, self.user2.get_full_name())
 

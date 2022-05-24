@@ -10,9 +10,9 @@ from users.consts import LOGIN_VIEW
 
 class TestStatuses(TestCase):
     fixtures = [
-        'Statuses.json', 
-        'Users.json', 
-        'Tasks.json', 
+        'Statuses.json',
+        'Users.json',
+        'Tasks.json',
         'Labels.json',
     ]
 
