@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from users.urls import urlpatterns as users_views
-from users.urls import external_patterns as login_logout
-from statuses.urls import urlpatterns as statuses_views
-from tasks.urls import urlpatterns as tasks_views
-from labels.urls import urlpatterns as labels_views
+from .users.urls import urlpatterns as users_views
+from .users.urls import external_patterns as login_logout
+from .statuses.urls import urlpatterns as statuses_views
+from .tasks.urls import urlpatterns as tasks_views
+from .labels.urls import urlpatterns as labels_views
 
 
 urlpatterns = [

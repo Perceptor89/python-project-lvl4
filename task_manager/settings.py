@@ -22,13 +22,13 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-FIXTURE_DIRS = (os.path.join(BASE_DIR, "fixtures"),)
+FIXTURE_DIRS = (os.path.join(BASE_DIR, 'fixtures'),)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-ROLL_KEY = os.getenv("ROLL_KEY")
+ROLL_KEY = os.getenv('ROLL_KEY')
 DEBUG = (os.getenv('DEBUG') == 'True')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -49,13 +49,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'task_manager',
-    'users.apps.UsersConfig',
-    'statuses.apps.StatusesConfig',
-    'tasks.apps.TasksConfig',
-    'labels.apps.LabelsConfig',
+    'task_manager.users',
+    'task_manager.statuses',
+    'task_manager.tasks',
+    'task_manager.labels',
     'bootstrap4',
     'django_filters',
-    # 'django_extensions',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -71,12 +71,12 @@ MIDDLEWARE = [
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
-ROLLBAR = {
-    'access_token': ROLL_KEY,
-    'environment': 'development' if DEBUG else 'production',
-    'root': BASE_DIR,
-}
-rollbar.init(**ROLLBAR)
+# ROLLBAR = {
+#     'access_token': ROLL_KEY,
+#     'environment': 'development' if DEBUG else 'production',
+#     'root': BASE_DIR,
+# }
+# rollbar.init(**ROLLBAR)
 
 ROOT_URLCONF = 'task_manager.urls'
 
@@ -144,13 +144,13 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
+    os.path.join(BASE_DIR, 'task_manager', 'locale'),
 )
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'task_manager', 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
@@ -162,6 +162,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGOUT_REDIRECT_URL = 'home'
+AUTH_USER_MODEL = 'users.User'
 
 LOGGING = {
     "version": 1,

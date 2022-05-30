@@ -1,0 +1,74 @@
+[
+{
+    "model": "users.User",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$FP0BKbELUSXaW8YERjfr3F$JAZZMSSoKCA0TyhrpGV2Enam7vRito/j518muVv6XhQ=",
+        "last_login": "2022-05-09T05:34:04.380Z",
+        "is_superuser": false,
+        "username": "testuser1",
+        "first_name": "First1",
+        "last_name": "Last1",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-04-12T05:28:16.878Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.User",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$Gddd3QNYttalZD9FcN1dbX$y8zxKYFNBqmw+VspAXOjUqc68eKFjh/aXf+PvdRVHvU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testuser2",
+        "first_name": "First2",
+        "last_name": "Last2",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-04-12T09:30:58Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.User",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$Uy1xGm0Eui9V5DxkK46j6H$sTsegmf3TI/bAyR4qh/5niwpAXEZpJ4JYSIwMj324zQ=",
+        "last_login": "2022-05-09T04:17:32.676Z",
+        "is_superuser": true,
+        "username": "testuser3",
+        "first_name": "First3",
+        "last_name": "Last3",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-04-13T04:36:13Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.User",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$CB5iImyleS2iajAu413ULB$28PbYptuIBpb110Bi5djCBRe39TYTMotN9Jx/m4MI7k=",
+        "last_login": "2022-05-12T13:17:42.132Z",
+        "is_superuser": false,
+        "username": "testuser4",
+        "first_name": "First4",
+        "last_name": "Last4",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-05-10T04:18:35.750Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

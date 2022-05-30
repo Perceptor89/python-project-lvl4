@@ -27,7 +27,7 @@ translate:
 	django-admin compilemessages
 
 lint:
-	poetry run flake8 task_manager/ labels/ statuses/ users/ tasks/
+	poetry run flake8 task_manager/
 
 test:
 	@$(MANAGE) test
@@ -37,4 +37,4 @@ coverage:
 	poetry run coverage xml
 	poetry run coverage report
 
-.PHONY: run test lint translate check web
+.PHONY: run test lint translate check web locale

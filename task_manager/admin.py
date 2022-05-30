@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tasks.models import Task, Status, Label, LabelTaskIntermediate
+from .tasks.models import Task, Status, Label, LabelTaskIntermediate, User
 
 
 class TaskAdmin(admin.ModelAdmin):
@@ -21,6 +21,7 @@ admin.site.register(Task, TaskAdmin)
 admin.site.register(Status)
 admin.site.register(Label)
 admin.site.register(LabelTaskIntermediate, LabelTaskAdmin)
+admin.site.register(User)
 
 admin.site.site_title = 'Админ-панель менеджера задач'
 admin.site.site_header = 'Админ-панель менеджера задач'
