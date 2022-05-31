@@ -37,18 +37,10 @@ class TestTasks(TestCase):
         self.client.force_login(self.user1)
         response = self.client.get(reverse(consts.LIST_VIEW))
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        content = response.rendered_content
-        lines = content.count('</tr')
-        lines_expected = Task.objects.all().count()
-        self.assertTrue(lines == lines_expected)
-        self.assertTrue(content.find(consts.LIST_TITLE) > 0)
-        test_fields = ['name', 'author__first_name', 'author__last_name',
-                       'executor__first_name', 'executor__last_name',
-                       'status__name']
-        for field in test_fields:
-            names = Task.objects.values_list(field).all()
-            inclusions = list(map(lambda x: content.find(str(*x)) > 0, names))
-            self.assertTrue(all(inclusions))
+        self.assertContains(response, consts.LIST_TITLE)
+        content_tasks = response.context[consts.CONTEXT_OBJECT_NAME]
+        db_tasks = Task.objects.all()
+        self.assertQuerysetEqual(content_tasks, db_tasks)
 
     def test_tasks_list_no_login(self):
         response = self.client.get(reverse(consts.LIST_VIEW))
@@ -117,10 +109,12 @@ class TestTasks(TestCase):
         filtered_list = "{0}?self_task=on".format(reverse(consts.LIST_VIEW))
         response = self.client.get(filtered_list)
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        filtered_authors = response.context[
-            'filter'].qs.values_list('concat1', flat=True)
-        for author in filtered_authors:
-            self.assertEqual(author, self.user1.get_full_name())
+        listed_tasks = response.context[consts.CONTEXT_OBJECT_NAME]
+        db_filtered_tasks = Task.objects.filter(id=self.user1.id)
+        self.assertQuerysetEqual(
+            listed_tasks,
+            db_filtered_tasks,
+        )
 
     def test_filter_by_status(self):
         test_status_id = 2
@@ -130,10 +124,9 @@ class TestTasks(TestCase):
         )
         response = self.client.get(filtered_list)
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        filtered_statuses = response.context[
-            'filter'].qs.values_list('status', flat=True)
-        for status in filtered_statuses:
-            self.assertEqual(status, test_status_id)
+        listed_tasks = response.context[consts.CONTEXT_OBJECT_NAME]
+        for task in listed_tasks:
+            self.assertEqual(task.status_id, test_status_id)
 
     def test_filter_by_executor(self):
         test_executor_id = 2
@@ -143,10 +136,9 @@ class TestTasks(TestCase):
         )
         response = self.client.get(filtered_list)
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        filtered_executors = response.context[
-            'filter'].qs.values_list('concat2', flat=True)
-        for executor in filtered_executors:
-            self.assertEqual(executor, self.user2.get_full_name())
+        listed_tasks = response.context[consts.CONTEXT_OBJECT_NAME]
+        for task in listed_tasks:
+            self.assertEqual(task.executor_id, test_executor_id)
 
     def test_filter_by_label(self):
         test_label_id = 1
@@ -157,8 +149,8 @@ class TestTasks(TestCase):
         )
         response = self.client.get(filtered_list)
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        for filtered_task in response.context['filter'].qs:
-            db_task = Task.objects.get(id=filtered_task.id)
+        for task in response.context[consts.CONTEXT_OBJECT_NAME]:
+            db_task = Task.objects.get(id=task.id)
             assigned_labels = list(
                 itertools.chain(*db_task.labels.values_list('id'))
             )

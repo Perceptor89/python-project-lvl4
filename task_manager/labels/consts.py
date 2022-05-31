@@ -6,21 +6,12 @@ CREATE_VIEW = 'label_create'
 UPDATE_VIEW = 'label_update'
 DELETE_VIEW = 'label_delete'
 
-LIST_TITLE = _('Labels')
 CREATE_TITLE = _('Label creation')
 UPDATE_TITLE = _('Label update')
 DELETE_TITLE = _('Label delete')
-DETAIL_LINK_COLUMN = 2
-CREATE_LINK = _('Create label')
 
-CONTEXT_OBJECT_NAME = 'table'
+CONTEXT_OBJECT_NAME = 'labels'
 STATUS_OK = 200
-
-TABLE_HEADS = [
-    'ID',
-    _('Name'),
-    _('Creation date'),
-]
 
 MESSAGE_CREATE_SUCCESS = _('Label created successfully')
 MESSAGE_UPDATE_SUCCESS = _('Label updated successfully')

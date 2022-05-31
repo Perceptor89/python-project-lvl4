@@ -5,14 +5,12 @@ from django.contrib.auth import logout
 from django.contrib.auth.mixins import AccessMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Value
-from django.db.models.functions import Concat
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView
 from django.utils.translation import gettext as _
 
-from ..mixins import LoginRequiredMessage, MyDeleteView
+from ..mixins import MyLoginRequiredMixin, MyDeleteView
 from ..users import consts
 from ..users.forms import UserCreateForm
 from ..users.models import User
@@ -20,7 +18,7 @@ from ..users.models import User
 logger = logging.getLogger(__name__)
 
 
-class UserHasPermission(AccessMixin):
+class UserPermissionMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         if kwargs['pk'] != self.request.user.id:
             messages.error(self.request, consts.MESSAGE_NO_PERMISSION),
@@ -29,31 +27,12 @@ class UserHasPermission(AccessMixin):
 
 
 class UserListView(ListView):
-    template_name = 'table.html'
+    template_name = 'users/users_list.html'
     model = User
     context_object_name = consts.CONTEXT_OBJECT_NAME
 
-    def get_context_data(self, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = consts.LIST_TITLE
-        context['table_heads'] = consts.TABLE_HEADS
-        context['update_link'] = consts.UPDATE_VIEW
-        context['delete_link'] = consts.DELETE_VIEW
-        return context
 
-    def get_queryset(self):
-        return User.objects.values_list(
-            'id',
-            'username',
-            Concat(
-                'first_name',
-                Value(' '),
-                'last_name'),
-            'date_joined',
-            named=True)
-
-
-class UserUpdateView(LoginRequiredMessage, UserHasPermission,
+class UserUpdateView(MyLoginRequiredMixin, UserPermissionMixin,
                      SuccessMessageMixin, UpdateView):
     form_class = UserCreateForm
     model = User
@@ -72,7 +51,7 @@ class UserUpdateView(LoginRequiredMessage, UserHasPermission,
         return super().get_success_url()
 
 
-class UserDeleteView(LoginRequiredMessage, UserHasPermission,
+class UserDeleteView(MyLoginRequiredMixin, UserPermissionMixin,
                      SuccessMessageMixin, MyDeleteView):
     model = User
     template_name = 'delete_page.html'
@@ -83,7 +62,6 @@ class UserDeleteView(LoginRequiredMessage, UserHasPermission,
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = consts.DELETE_TITLE
-        context['btn_name'] = _('Yes, delete')
         name = self.get_object().get_full_name()
         msg = '{0} {1}?'.format(consts.QUESTION_DELETE, name)
         context['message'] = msg
@@ -121,7 +99,7 @@ class UserLogin(LoginView):
         return super().form_invalid(form)
 
 
-class UserLogout(LoginRequiredMessage, LogoutView):
+class UserLogout(MyLoginRequiredMixin, LogoutView):
     next_page = reverse_lazy('home')
 
     def dispatch(self, request, *args, **kwargs):

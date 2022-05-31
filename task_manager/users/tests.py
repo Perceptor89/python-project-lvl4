@@ -24,11 +24,7 @@ class TestUsers(TestCase):
         users_list = response.context[consts.CONTEXT_OBJECT_NAME]
         db_users = User.objects.all()
         self.assertEqual(users_list.count(), db_users.count())
-        self.assertQuerysetEqual(
-            users_list.values_list('first_name', 'last_name'),
-            db_users.values_list('first_name', 'last_name'),
-            ordered=False,
-        )
+        self.assertQuerysetEqual(users_list, db_users, ordered=False)
 
     def test_user_create(self):
         url = reverse(consts.CREATE_VIEW)

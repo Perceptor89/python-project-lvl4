@@ -1,53 +1,26 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Value
-from django.db.models.functions import Concat
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic import (DetailView, ListView,
-                                  CreateView, UpdateView)
+from django.views.generic import (DetailView, CreateView, UpdateView)
+from django_filters.views import FilterView
 
-from ..mixins import LoginRequiredMessage, MyDeleteView
+from ..mixins import MyLoginRequiredMixin, MyDeleteView
 from ..users.models import User
 from ..tasks import consts
 from ..tasks.forms import TaskForm, TaskFilter
 from ..tasks.models import Task
 
 
-class TaskListView(LoginRequiredMessage, ListView):
-    template_name = 'tasks/table.html'
+class TaskListView(MyLoginRequiredMixin, FilterView):
+    template_name = 'tasks/tasks_list.html'
     model = Task
+    filterset_class = TaskFilter
     context_object_name = consts.CONTEXT_OBJECT_NAME
 
-    def get_context_data(self, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = consts.LIST_TITLE
-        context['table_heads'] = consts.TABLE_HEADS
-        context['create_path_name'] = consts.CREATE_LINK
-        context['create_path'] = consts.CREATE_VIEW
-        context['update_link'] = consts.UPDATE_VIEW
-        context['delete_link'] = consts.DELETE_VIEW
-        context['detail_col'] = consts.DETAIL_LINK_COLUMN
-        context['detail_path'] = consts.DETAIL_VIEW
-        context['filter'] = TaskFilter(self.request.GET,
-                                       request=self.request,
-                                       queryset=self.get_queryset())
-        return context
 
-    def get_queryset(self, *args, **kwargs):
-        return Task.objects.values_list('id', 'name', 'status__name',
-                                        Concat('author__first_name',
-                                               Value(' '),
-                                               'author__last_name'),
-                                        Concat('executor__first_name',
-                                               Value(' '),
-                                               'executor__last_name'),
-                                        'created_at',
-                                        named=True)
-
-
-class TaskCreateView(LoginRequiredMessage, SuccessMessageMixin, CreateView):
+class TaskCreateView(MyLoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TaskForm
     template_name = 'form.html'
     model = Task
@@ -65,7 +38,7 @@ class TaskCreateView(LoginRequiredMessage, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-class TaskUpdateView(LoginRequiredMessage, SuccessMessageMixin, UpdateView):
+class TaskUpdateView(MyLoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "form.html"
@@ -79,7 +52,7 @@ class TaskUpdateView(LoginRequiredMessage, SuccessMessageMixin, UpdateView):
         return context
 
 
-class TaskDeleteView(LoginRequiredMessage, MyDeleteView):
+class TaskDeleteView(MyLoginRequiredMixin, MyDeleteView):
     template_name = 'delete_page.html'
     model = Task
     success_url = reverse_lazy(consts.LIST_VIEW)
@@ -89,7 +62,6 @@ class TaskDeleteView(LoginRequiredMessage, MyDeleteView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = consts.DELETE_TITLE
-        context['btn_name'] = _('Yes, delete')
         name = self.get_object().get_full_name()
         msg = '{0} {1}?'.format(consts.QUESTION_DELETE, name)
         context['message'] = msg
@@ -103,14 +75,7 @@ class TaskDeleteView(LoginRequiredMessage, MyDeleteView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class TaskDetailView(LoginRequiredMessage, DetailView):
+class TaskDetailView(MyLoginRequiredMixin, DetailView):
     model = Task
     template_name = 'tasks/detail.html'
     context_object_name = 'task'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = consts.DETAIL_TITLE
-        context['update_link'] = consts.UPDATE_VIEW
-        context['delete_link'] = consts.DELETE_VIEW
-        return context

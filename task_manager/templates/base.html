@@ -44,7 +44,7 @@
                     <a class="nav-link" href="{% url 'login' %}">{% translate 'Log in' %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'registration' %}">{% translate 'Sign in' %}</a>
+                    <a class="nav-link" href="{% url 'user_create' %}">{% translate 'Sign in' %}</a>
                 </li>
                 {% endif %}
             </ul>
@@ -53,9 +53,6 @@
     <div class="container wrapper flex-grow-1">
         <div class="">
             {% bootstrap_messages %}
-            {% block title %}
-                <h1 class="my-4">{% translate title %}</h1>
-            {% endblock title %}
         </div>
         {% block content %}{% endblock %}
     </div>

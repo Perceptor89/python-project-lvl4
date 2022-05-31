@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'task_manager.labels',
     'bootstrap4',
     'django_filters',
-    'django_extensions',
+    # 'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -71,12 +71,12 @@ MIDDLEWARE = [
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
-# ROLLBAR = {
-#     'access_token': ROLL_KEY,
-#     'environment': 'development' if DEBUG else 'production',
-#     'root': BASE_DIR,
-# }
-# rollbar.init(**ROLLBAR)
+ROLLBAR = {
+    'access_token': ROLL_KEY,
+    'environment': 'development' if DEBUG else 'production',
+    'root': BASE_DIR,
+}
+rollbar.init(**ROLLBAR)
 
 ROOT_URLCONF = 'task_manager.urls'
 

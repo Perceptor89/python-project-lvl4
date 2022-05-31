@@ -11,21 +11,9 @@ LIST_TITLE = _('Tasks')
 CREATE_TITLE = _('Task creation')
 UPDATE_TITLE = _('Task update')
 DELETE_TITLE = _('Task delete')
-DETAIL_TITLE = _('Task view')
-DETAIL_LINK_COLUMN = 2
-CREATE_LINK = _('Create task')
 
 CONTEXT_OBJECT_NAME = 'tasks'
 STATUS_OK = 200
-
-TABLE_HEADS = [
-    'ID',
-    _('Name'),
-    _('Status'),
-    _('Author'),
-    _('Executor'),
-    _('Creation date'),
-]
 
 MESSAGE_CREATE_SUCCESS = _('Task created successfully')
 MESSAGE_UPDATE_SUCCESS = _('Task updated successfully')

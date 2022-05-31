@@ -2,25 +2,18 @@ from django.utils.translation import gettext as _
 
 
 LIST_VIEW = 'list'
-UPDATE_VIEW = 'update_user'
-DELETE_VIEW = 'delete_user'
-CREATE_VIEW = 'registration'
+UPDATE_VIEW = 'user_update'
+DELETE_VIEW = 'user_delete'
+CREATE_VIEW = 'user_create'
 LOGIN_VIEW = 'login'
 LOGOUT_VIEW = 'logout'
 
-LIST_TITLE = _('Users')
 UPDATE_TITLE = _('Change user')
 DELETE_TITLE = _('Delete user')
 CREATE_TITLE = _('User registration')
 LOGIN_TITLE = _('Authorization')
-TABLE_HEADS = (
-    'ID',
-    _('User name'),
-    _('Full name'),
-    _('Creation date')
-)
 
-CONTEXT_OBJECT_NAME = 'table'
+CONTEXT_OBJECT_NAME = 'users'
 STATUS_OK = 200
 
 QUESTION_DELETE = _('Are you sure want to delete')

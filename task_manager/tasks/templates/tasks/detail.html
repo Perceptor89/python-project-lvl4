@@ -2,6 +2,7 @@
 {% load bootstrap4 %}
 {% load i18n %}
 {% block content %}
+<h1 class="my-4">{% translate 'Task view' %}</h1>
 <div class="card">
     <div class="card-header bg-secondary text-white">
         <h2>{{ task.name }}</h2>
@@ -38,9 +39,9 @@
             </div>
             <div class="row p-1">
                 <div class ='col'>
-                    <a href={% url update_link task.id %}>{% translate 'Change' %}</a>
+                    <a href={% url 'task_update' task.id %}>{% translate 'Change' %}</a>
                     <br>
-                    <a href={% url delete_link  task.id %}>{% translate 'Delete' %}</a>
+                    <a href={% url 'task_delete' task.id %}>{% translate 'Delete' %}</a>
                 </div>
             </div>
         </div>

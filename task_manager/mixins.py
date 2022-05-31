@@ -1,7 +1,7 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.mixins import AccessMixin
+from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.db.models import RestrictedError
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
@@ -10,7 +10,14 @@ from django.views.generic import DeleteView
 
 logger = logging.getLogger(__name__)
 
-MESSAGE_LOGIN_REQUIRED = _('You have no authorization! Log in please.')
+
+class MyLoginRequiredMixin(LoginRequiredMixin):
+    login_url = '/login/'
+    permission_denied_message = _('You have no authorization! Log in please.')
+
+    def handle_no_permission(self):
+        messages.error(self.request, self.permission_denied_message)
+        return redirect(self.login_url)
 
 
 class LoginRequiredMessage(AccessMixin):
@@ -18,7 +25,7 @@ class LoginRequiredMessage(AccessMixin):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.error(self.request, MESSAGE_LOGIN_REQUIRED),
+            messages.error(self.request, 'bla'),
             return redirect(self.login_url)
         return super().dispatch(request, *args, **kwargs)
 

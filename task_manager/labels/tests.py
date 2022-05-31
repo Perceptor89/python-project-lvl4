@@ -24,10 +24,9 @@ class TestLabels(TestCase):
         self.client.force_login(self.user1)
         response = self.client.get(reverse(consts.LIST_VIEW))
         self.assertEqual(response.status_code, consts.STATUS_OK)
-        context_object = response.context[consts.CONTEXT_OBJECT_NAME]
-        context_names = context_object.values_list('name').all()
-        db_names = Label.objects.values_list('name').all()
-        self.assertQuerysetEqual(db_names, context_names)
+        context_objects = response.context[consts.CONTEXT_OBJECT_NAME]
+        db_names = Label.objects.all()
+        self.assertQuerysetEqual(context_objects, db_names)
 
     def test_labels_list_no_login(self):
         response = self.client.get(reverse(consts.LIST_VIEW))
