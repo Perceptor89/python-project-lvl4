@@ -4,15 +4,15 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/0fa462337d6ccbb87d30/maintainability)](https://codeclimate.com/github/Perceptor89/python-project-lvl4/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0fa462337d6ccbb87d30/test_coverage)](https://codeclimate.com/github/Perceptor89/python-project-lvl4/test_coverage)
 
-Task manager is an app which helps your to remember to do things.
+Task manager is an app which helps you to remember things.
 
 ## Example of website:
 [Task manager](https://protected-harbor-92063.herokuapp.com "Heroku.com")
 
 ## Local installation:
-
+You need to clone repository first:
 ```bash
-pip install --user git+https://github.com/Perceptor89/python-project-lvl4
+git clone https://github.com/Perceptor89/python-project-lvl4
 ```
 
 The file ".env" should be created in root directory. You should set there local variables:
